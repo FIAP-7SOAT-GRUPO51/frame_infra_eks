@@ -12,7 +12,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "frame-eks"
+  cluster_name = "frame-eks-2"
 }
 
 
