@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frame-extractor-api-deployment
+  labels: 
+    app: frame-extractor-api-deployment
+  annotations:
+    author: Grupo 51 - Fiap Postech - 7SOAT
+    app-version: 1.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frame-extractor-api
+  template:
+    metadata:
+      labels:
+        app: frame-extractor-api
+    spec:
+      containers:
+        - name: frame-extractor-api
+          image: fiapgrupo51/frame-extractor-api:1.0.0
+          ports:
+            - containerPort: 8087
+          resources:
+            limits:
+              cpu: "1"
+            requests:
+              cpu: 500m
+          env:
+            - name: SPRING_PROFILES_ACTIVE_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: frame-extractor-api-config
+                  key: SPRING_PROFILES_ACTIVE_ENVIRONMENT
+            - name: SPRING_DATASOURCE_PLATFORM
+              valueFrom:
+                configMapKeyRef:
+                  name: frame-extractor-api-config
+                  key: SPRING_DATASOURCE_PLATFORM
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-api-secret
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-db-secret
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: SPRING_DATASOURCE_DRIVER
+              valueFrom:
+                configMapKeyRef:
+                  name: frame-extractor-api-config
+                  key: SPRING_DATASOURCE_DRIVER
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: frame-extractor-api-config
+                  key: APP_PORT

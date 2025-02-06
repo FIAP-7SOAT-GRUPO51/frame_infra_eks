@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frame-extractor-db-deployment
+  annotations:
+    author: 'Grupo 51 - Fiap Postech - 7SOAT'
+    app-version: 1.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frame-extractor-db
+  template:
+    metadata:
+      labels:
+        app: frame-extractor-db
+    spec:
+      containers:
+        - name: frame-extractor-db
+          image: postgres:14
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-db-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: frame-extractor-db-config
+                  key: POSTGRES_DB
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: pvc-frame-extractor-db-claim
