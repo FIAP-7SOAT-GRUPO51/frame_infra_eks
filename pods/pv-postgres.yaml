@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-quick-serve-db
+  name: pv-frame-extractor-db
   labels:
-    name: pv-quick-serve-db
+    name: pv-frame-extractor-db
 spec:
   storageClassName: local-storage
   capacity:
@@ -13,4 +13,4 @@ spec:
     - ReadWriteMany   # Can be ReadWriteOnce, ReadOnlyMany, ReadWriteMany
   persistentVolumeReclaimPolicy: Retain  # Can be Retain, Recycle, Delete (default is Delete)
   hostPath:
-    path: /mnt/c/DATA_POSTGRES_KUBERNETES/quick-serve-db
+    path: /mnt/c/DATA_POSTGRES_KUBERNETES/frame-extractor-db

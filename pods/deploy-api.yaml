@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frame-extractor-api
-          image: fiapgrupo51/frame-extractor-api:1.0.0
+          image: arterodocker/frame-extractor-api:1.0.2
           ports:
             - containerPort: 8087
           resources:
@@ -58,8 +58,23 @@ spec:
                 configMapKeyRef:
                   name: frame-extractor-api-config
                   key: SPRING_DATASOURCE_DRIVER
-            - name: APP_PORT
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-api-secret
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-api-secret
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_S3_BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: frame-extractor-api-secret
+                  key: AWS_S3_BUCKET_NAME
+            - name: AWS_REGION
               valueFrom:
                 configMapKeyRef:
                   name: frame-extractor-api-config
-                  key: APP_PORT
+                  key: AWS_REGION

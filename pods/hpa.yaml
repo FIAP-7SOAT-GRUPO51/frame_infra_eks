@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: quick-serve-hpa
+  name: frame-extractor-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: quick-serve-api-deployment
+    name: frame-extractor-api-deployment
   minReplicas: 1
   maxReplicas: 10
   metrics:

@@ -6,3 +6,5 @@ metadata:
     name: frame-extractor-db-config
 data:
   POSTGRES_DB: frameextractordb
+  SPRING_DATASOURCE_PLATFORM: postgres
+  SPRING_DATASOURCE_DRIVER: org.postgresql.Driver

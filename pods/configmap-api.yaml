@@ -8,4 +8,4 @@ data:
   SPRING_PROFILES_ACTIVE_ENVIRONMENT: "production"
   SPRING_DATASOURCE_PLATFORM: "postgres"
   SPRING_DATASOURCE_DRIVER: "org.postgresql.Driver"
-  APP_PORT: "8081"
+  AWS_REGION: "us-east-1"
